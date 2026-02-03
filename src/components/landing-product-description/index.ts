@@ -1,14 +1,24 @@
+/**
+ * Landing product description – title, text, highlight.
+ * Follows Salla Twilight component conventions: strict typing, default values.
+ * @see https://docs.salla.dev/doc-422580
+ */
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 export interface LandingProductDescriptionConfig {
+  /** Title. Default: "" */
   title?: string;
+  /** Description text. Default: "" */
   text?: string;
+  /** Highlight line. Default: "" */
   highlight?: string;
 }
 
+const DEFAULT_CONFIG: LandingProductDescriptionConfig = { title: '', text: '', highlight: '' };
+
 export default class LandingProductDescription extends LitElement {
-  @property({ type: Object }) data?: LandingProductDescriptionConfig;
+  @property({ type: Object }) data: LandingProductDescriptionConfig = DEFAULT_CONFIG;
 
   static styles = css`
     :host { display: block; }
@@ -27,9 +37,10 @@ export default class LandingProductDescription extends LitElement {
   `;
 
   render() {
-    const title = this.data?.title ?? '';
-    const text = this.data?.text ?? '';
-    const highlight = this.data?.highlight ?? '';
+    const cfg = this.data ?? DEFAULT_CONFIG;
+    const title = cfg.title ?? '';
+    const text = cfg.text ?? '';
+    const highlight = cfg.highlight ?? '';
     return html`
       <div class="product-desc-box">
         ${title ? html`<div class="desc-title">${title}</div>` : ''}

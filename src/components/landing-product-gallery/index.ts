@@ -1,13 +1,21 @@
+/**
+ * Landing product gallery – image slider, thumbnails, lightbox.
+ * Follows Salla Twilight component conventions: strict typing, default values.
+ * @see https://docs.salla.dev/doc-422580
+ */
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { FALLBACK_IMAGES } from '../../lib/fallback-data.js';
 
 export interface LandingProductGalleryConfig {
-  images?: string[];
+  /** Product images (collection as [{ image: url }] or string[]). Default: fallback set when empty. */
+  images?: string[] | Array<{ image?: string; url?: string }>;
 }
 
+const DEFAULT_CONFIG: LandingProductGalleryConfig = {};
+
 export default class LandingProductGallery extends LitElement {
-  @property({ type: Object }) data?: LandingProductGalleryConfig;
+  @property({ type: Object }) data: LandingProductGalleryConfig = DEFAULT_CONFIG;
   private _lightboxOpen = false;
   private _currentIndex = 0;
   private _images: string[] = [];
@@ -74,7 +82,8 @@ export default class LandingProductGallery extends LitElement {
   }
 
   private _getImages(): string[] {
-    const normalized = this._normalizeImages(this.data?.images);
+    const cfg = this.data ?? DEFAULT_CONFIG;
+    const normalized = this._normalizeImages(cfg.images);
     return normalized.length > 0 ? normalized : FALLBACK_IMAGES;
   }
 
@@ -84,9 +93,7 @@ export default class LandingProductGallery extends LitElement {
   }
 
   updated(changed: Map<string, unknown>) {
-    if (changed.has('data')) {
-      this._images = this._getImages();
-    }
+    if (changed.has('data')) this._images = this._getImages();
   }
 
   private _openLightbox(index: number) {

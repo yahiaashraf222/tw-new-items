@@ -1,3 +1,8 @@
+/**
+ * Landing video section – title and video carousel.
+ * Follows Salla Twilight component conventions: strict typing, default values.
+ * @see https://docs.salla.dev/doc-422580
+ */
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { FALLBACK_VIDEOS } from '../../lib/fallback-data.js';
@@ -8,12 +13,16 @@ export interface VideoItem {
 }
 
 export interface LandingVideoSectionConfig {
+  /** Section title. Default: "تجاربكم" */
   title?: string;
+  /** Video items. Default: fallback set when empty */
   videos?: VideoItem[];
 }
 
+const DEFAULT_CONFIG: LandingVideoSectionConfig = { title: 'تجاربكم', videos: [] };
+
 export default class LandingVideoSection extends LitElement {
-  @property({ type: Object }) data?: LandingVideoSectionConfig;
+  @property({ type: Object }) data: LandingVideoSectionConfig = DEFAULT_CONFIG;
   private _playingIndex: number | null = null;
 
   static styles = css`
@@ -82,8 +91,9 @@ export default class LandingVideoSection extends LitElement {
   }
 
   render() {
-    const title = this.data?.title ?? 'تجاربكم';
-    const videos = (this.data?.videos?.length ? this.data.videos : FALLBACK_VIDEOS) ?? [];
+    const cfg = this.data ?? DEFAULT_CONFIG;
+    const title = cfg.title ?? 'تجاربكم';
+    const videos = (cfg.videos?.length ? cfg.videos : FALLBACK_VIDEOS) ?? [];
 
     return html`
       <div class="custom-video-section">

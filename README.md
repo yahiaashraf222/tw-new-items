@@ -19,6 +19,14 @@ This starter kit provides a foundation for building custom Twilight components f
 5. Run `pnpm run dev` to start the development server
 6. Run `pnpm run build` to build your components for production
 
+## Component Conventions
+
+Components follow [Salla Twilight components overview](https://docs.salla.dev/doc-422580):
+
+- **Strict typing**: Each component has a TypeScript interface for its config; the `data` property is typed (e.g. `LandingProductGalleryConfig`).
+- **Default values**: Every non-required property has a default so the component works without form-builder data. Required fields are only those marked `required: true` in `twilight-bundle.json`.
+- **Independent & reusable**: Components are self-contained and receive config via the `data` object from the Salla form builder.
+
 ## Project Structure
 
 ```

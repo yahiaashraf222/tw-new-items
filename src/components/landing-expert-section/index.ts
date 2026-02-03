@@ -1,3 +1,8 @@
+/**
+ * Landing expert section – banner and descriptive cards.
+ * Follows Salla Twilight component conventions: strict typing, default values.
+ * @see https://docs.salla.dev/doc-422580
+ */
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { FALLBACK_EXPERT_BANNER, FALLBACK_EXPERT_BANNER_ALT } from '../../lib/fallback-data.js';
@@ -9,13 +14,18 @@ export interface ExpertCard {
 }
 
 export interface LandingExpertSectionConfig {
+  /** Banner image URL. Default: fallback image when empty */
   bannerImage?: string;
+  /** Banner alt text. Default: fallback alt */
   bannerAlt?: string;
+  /** Expert cards (paragraphs_json as JSON in form builder). Default: [] */
   cards?: ExpertCard[];
 }
 
+const DEFAULT_CONFIG: LandingExpertSectionConfig = { cards: [] };
+
 export default class LandingExpertSection extends LitElement {
-  @property({ type: Object }) data?: LandingExpertSectionConfig;
+  @property({ type: Object }) data: LandingExpertSectionConfig = DEFAULT_CONFIG;
 
   static styles = css`
     :host { display: block; }
@@ -64,9 +74,10 @@ export default class LandingExpertSection extends LitElement {
   }
 
   render() {
-    const banner = (this.data?.bannerImage?.trim() || FALLBACK_EXPERT_BANNER);
-    const bannerAlt = (this.data?.bannerAlt?.trim() || FALLBACK_EXPERT_BANNER_ALT);
-    const cards = this._normalizeCards(this.data?.cards);
+    const cfg = this.data ?? DEFAULT_CONFIG;
+    const banner = (cfg.bannerImage?.trim() || FALLBACK_EXPERT_BANNER);
+    const bannerAlt = (cfg.bannerAlt?.trim() || FALLBACK_EXPERT_BANNER_ALT);
+    const cards = this._normalizeCards(cfg.cards);
 
     return html`
       <div class="expert-section">

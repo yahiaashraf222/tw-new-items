@@ -1,23 +1,25 @@
+/**
+ * Wraps Salla's native Add Product component for landing pages.
+ * Follows Salla Twilight component conventions: strict typing, default values.
+ * @see https://docs.salla.dev/doc-422580
+ * Set product_id in config on landing page; leave empty on product page to use current product.
+ */
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-/**
- * Wraps Salla's native Add Product component for landing pages.
- * Set product_id in component config when used on a landing page.
- * When used on a product page, leave product_id empty to use the current product
- * (Salla theme provides context). Compatible with Salla Add Product API and Fast Checkout.
- */
 export interface LandingAddToCartConfig {
-  /** Product ID – required on landing page; leave empty on product page to use current product */
+  /** Product ID – required on landing page; leave empty on product page. Default: "" */
   product_id?: string;
-  /** Default quantity (1 if not set) */
+  /** Default quantity. Default: 1 */
   quantity?: number;
   /** Custom button label (optional; Salla add product has its own labels) */
   buttonLabel?: string;
 }
 
+const DEFAULT_CONFIG: LandingAddToCartConfig = { product_id: '', quantity: 1 };
+
 export default class LandingAddToCart extends LitElement {
-  @property({ type: Object }) data?: LandingAddToCartConfig;
+  @property({ type: Object }) data: LandingAddToCartConfig = DEFAULT_CONFIG;
 
   static styles = css`
     :host { display: block; }
@@ -36,8 +38,9 @@ export default class LandingAddToCart extends LitElement {
   `;
 
   render() {
-    const productId = this.data?.product_id ?? '';
-    const quantity = this.data?.quantity ?? 1;
+    const cfg = this.data ?? DEFAULT_CONFIG;
+    const productId = cfg.product_id ?? '';
+    const quantity = cfg.quantity ?? 1;
 
     return html`
       <div class="landing-add-to-cart-wrapper">

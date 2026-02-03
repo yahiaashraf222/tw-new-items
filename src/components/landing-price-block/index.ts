@@ -1,16 +1,26 @@
+/**
+ * Landing price block – current, old, and save price.
+ * Follows Salla Twilight component conventions: strict typing, default values.
+ * @see https://docs.salla.dev/doc-422580
+ */
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 export interface LandingPriceBlockConfig {
+  /** Current price. Default: 0 */
   current?: number;
+  /** Old price (optional). Default: undefined */
   old?: number;
+  /** Save amount (optional; computed from old - current when not set). Default: computed or 0 */
   save?: number;
-  /** When used on product page, leave empty to use product data from Salla */
+  /** When on product page, leave empty to use product data from Salla */
   productId?: string;
 }
 
+const DEFAULT_CONFIG: LandingPriceBlockConfig = { current: 0 };
+
 export default class LandingPriceBlock extends LitElement {
-  @property({ type: Object }) data?: LandingPriceBlockConfig;
+  @property({ type: Object }) data: LandingPriceBlockConfig = DEFAULT_CONFIG;
 
   static styles = css`
     :host { display: block; }
@@ -30,9 +40,10 @@ export default class LandingPriceBlock extends LitElement {
   `;
 
   render() {
-    const current = this.data?.current ?? 0;
-    const old = this.data?.old;
-    const save = this.data?.save ?? (old != null ? old - current : 0);
+    const cfg = this.data ?? DEFAULT_CONFIG;
+    const current = cfg.current ?? 0;
+    const old = cfg.old;
+    const save = cfg.save ?? (old != null ? old - current : 0);
     const showSave = save > 0 && old != null;
 
     return html`

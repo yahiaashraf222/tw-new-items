@@ -1,3 +1,8 @@
+/**
+ * Landing perfume ingredients – cards with sections and ingredient items.
+ * Follows Salla Twilight component conventions: strict typing, default values.
+ * @see https://docs.salla.dev/doc-422580
+ */
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -17,11 +22,14 @@ export interface PerfumeCard {
 }
 
 export interface LandingPerfumeIngredientsConfig {
-  cards?: PerfumeCard[];
+  /** Perfume cards (sections_json as JSON string in form builder). Default: [] */
+  cards?: PerfumeCard[] | Record<string, unknown>[];
 }
 
+const DEFAULT_CONFIG: LandingPerfumeIngredientsConfig = { cards: [] };
+
 export default class LandingPerfumeIngredients extends LitElement {
-  @property({ type: Object }) data?: LandingPerfumeIngredientsConfig;
+  @property({ type: Object }) data: LandingPerfumeIngredientsConfig = DEFAULT_CONFIG;
 
   static styles = css`
     :host { display: block; }
@@ -70,7 +78,8 @@ export default class LandingPerfumeIngredients extends LitElement {
   }
 
   render() {
-    const cards = this._normalizeCards(this.data?.cards);
+    const cfg = this.data ?? DEFAULT_CONFIG;
+    const cards = this._normalizeCards(cfg.cards);
     if (!cards.length) return html`<div class="perfume-ingredients-section"></div>`;
 
     return html`

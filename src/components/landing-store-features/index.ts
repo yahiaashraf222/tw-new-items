@@ -1,3 +1,8 @@
+/**
+ * Landing store features – Tabby & Tamara, fast delivery, etc.
+ * Follows Salla Twilight component conventions: strict typing, default values.
+ * @see https://docs.salla.dev/doc-422580
+ */
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { FALLBACK_FEATURES } from '../../lib/fallback-data.js';
@@ -9,11 +14,14 @@ export interface FeatureItem {
 }
 
 export interface LandingStoreFeaturesConfig {
+  /** List of feature items. Default: fallback set when empty. */
   features?: FeatureItem[];
 }
 
+const DEFAULT_CONFIG: LandingStoreFeaturesConfig = {};
+
 export default class LandingStoreFeatures extends LitElement {
-  @property({ type: Object }) data?: LandingStoreFeaturesConfig;
+  @property({ type: Object }) data: LandingStoreFeaturesConfig = DEFAULT_CONFIG;
 
   static styles = css`
     :host { display: block; }
@@ -37,7 +45,8 @@ export default class LandingStoreFeatures extends LitElement {
   `;
 
   render() {
-    const features = (this.data?.features?.length ? this.data.features : FALLBACK_FEATURES) ?? [];
+    const cfg = this.data ?? DEFAULT_CONFIG;
+    const features = (cfg.features?.length ? cfg.features : FALLBACK_FEATURES) ?? [];
     return html`
       <div class="store-features-box">
         ${features.map((f) => html`
