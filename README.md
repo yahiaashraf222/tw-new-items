@@ -206,7 +206,20 @@ export default class MyComponent extends LitElement {
 
 ## Building for Production
 
-Run `pnpm run build` to create production-ready bundles in the `dist/` directory. Each component will have its own file named after the component (e.g., `my-component.js`).
+Run `pnpm run build` to create production-ready bundles in the `dist/` directory. Each component will have its own file named after the component (e.g., `landing-product-gallery.js`).
+
+## Using on Salla
+
+The built bundle is ready to use on a real Salla store. Demo-only behavior (form-builder-mock stubs, proxy, import map) lives only in the dev server (`vite.config.ts`) and is not included in `dist/` — production uses Salla’s real APIs and form builder.
+
+**To use directly on Salla:**
+
+1. **Build:** Run `pnpm run build`. Output is in `dist/` (one `.js` per component plus shared `fallback-data-*.js`).
+2. **Upload the bundle:** Use [Salla Partners](https://salla.partners) (or your theme/app flow) to upload or register this bundle so the store can load it. You need to host the JS (e.g. CDN) and provide the bundle URL, or upload via the Partners portal if your workflow uses it.
+3. **Register in the theme:** Ensure the theme loads your bundle script (e.g. `twilight-bundle.json` and the `dist/` JS URL are registered as a custom bundle). The store’s Twilight engine provides `lit`; your components register as `salla-landing-product-gallery`, `salla-landing-price-block`, etc.
+4. **Use in the store:** In the page/landing builder, add the “new items” components and configure them (images, product ID for add-to-cart, videos, etc.). On a **product page**, leave **Product ID** empty in the Add to Cart component so Salla uses the current product.
+
+**Components included:** Landing Product Gallery, Price Block, Store Features, Product Description, Perfume Ingredients, Add to Cart (wraps Salla’s native add product), Expert Section, Video Section.
 
 ## Development
 

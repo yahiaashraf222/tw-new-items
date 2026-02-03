@@ -1,14 +1,186 @@
 {
     "name": {
-        "ar": "\u0645\u062c\u0645\u0648\u0639\u0627\u062a \u0627\u0636\u0627\u0641\u064a\u0629",
+        "ar": "مجموعات اضافية",
         "en": "new items"
     },
     "description": {
-        "ar": "",
-        "en": ""
+        "ar": "مكونات صفحة هبوط - معرض صور، سعر، ميزات، وصف، مكونات عطر، إضافة للسلة، قسم خبير، فيديو",
+        "en": "Landing page sections - gallery, price, features, description, ingredients, add to cart, expert, video"
     },
     "author_email": "yahia.ashraf@makaseb.sa",
     "support_url": "",
     "repository": "https://github.com/yahiaashraf222/tw-new-items",
-    "components": []
+    "components": [
+        {
+            "title": "Landing Product Gallery",
+            "icon": "sicon-image",
+            "name": "landing-product-gallery",
+            "key": "landing-gallery-001",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "images",
+                    "icon": "sicon-image",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "Product images",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "fields": [
+                        {
+                            "id": "image",
+                            "type": "string",
+                            "format": "image",
+                            "label": "Image",
+                            "required": true
+                        }
+                    ],
+                    "value": [
+                        { "image": "https://i.ibb.co/B5JZqC0F/19.png" },
+                        { "image": "https://i.ibb.co/Txzkg5gL/002.png" },
+                        { "image": "https://i.ibb.co/8gkwXt03/003.png" },
+                        { "image": "https://i.ibb.co/ycB3w6GG/18.png" }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Landing Price Block",
+            "icon": "sicon-tag",
+            "name": "landing-price-block",
+            "key": "landing-price-001",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                { "id": "current", "type": "number", "label": "Current price", "value": 199 },
+                { "id": "old", "type": "number", "label": "Old price", "value": 850 },
+                { "id": "save", "type": "number", "label": "Save amount", "value": 651 }
+            ]
+        },
+        {
+            "title": "Landing Store Features",
+            "icon": "sicon-check-circle",
+            "name": "landing-store-features",
+            "key": "landing-features-001",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "features",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "Features",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "fields": [
+                        { "id": "icon", "type": "string", "format": "url", "label": "Icon image URL" },
+                        { "id": "title", "type": "string", "label": "Title", "required": true },
+                        { "id": "subtitle", "type": "string", "format": "textarea", "label": "Subtitle" }
+                    ],
+                    "value": [
+                        { "icon": "https://i.ibb.co/WNS1Try3/icon1.png", "title": "تابي & تمارا", "subtitle": "قسم مشترياتك على 4 دفعات مع تابي وتمارا" },
+                        { "icon": "https://i.ibb.co/tTJmkh01/icon2.png", "title": "توصيل سريع", "subtitle": "توصيل من 2 : 5 ايام في جميع أنحاء المملكة" }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Landing Product Description",
+            "icon": "sicon-paragraph",
+            "name": "landing-product-description",
+            "key": "landing-desc-001",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                { "id": "title", "type": "string", "format": "text", "label": "Title", "placeholder": "Enter title", "value": "" },
+                { "id": "text", "type": "string", "format": "textarea", "label": "Text", "placeholder": "Enter description", "value": "" },
+                { "id": "highlight", "type": "string", "format": "text", "label": "Highlight", "placeholder": "Enter highlight", "value": "" }
+            ]
+        },
+        {
+            "title": "Landing Perfume Ingredients",
+            "icon": "sicon-layout-grid",
+            "name": "landing-perfume-ingredients",
+            "key": "landing-ingredients-001",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "cards",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "Perfume cards",
+                    "fields": [
+                        { "id": "title", "type": "string", "label": "Card title", "required": true },
+                        { "id": "sections_json", "type": "string", "format": "textarea", "label": "Sections (JSON: array of {title, items: [{image, name}]})" }
+                    ],
+                    "value": []
+                }
+            ]
+        },
+        {
+            "title": "Landing Add to Cart",
+            "icon": "sicon-cart",
+            "name": "landing-add-to-cart",
+            "key": "landing-addcart-001",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "product_id",
+                    "type": "string",
+                    "format": "text",
+                    "label": "Product ID",
+                    "placeholder": "Required on landing page; leave empty on product page",
+                    "value": ""
+                },
+                { "id": "quantity", "type": "number", "label": "Default quantity", "value": 1 }
+            ]
+        },
+        {
+            "title": "Landing Expert Section",
+            "icon": "sicon-user",
+            "name": "landing-expert-section",
+            "key": "landing-expert-001",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                { "id": "bannerImage", "type": "string", "format": "url", "label": "Banner image URL", "value": "https://i.ibb.co/nsc58ssG/Untitled-3.png" },
+                { "id": "bannerAlt", "type": "string", "label": "Banner alt text", "value": "بكج شتاء الملوك" },
+                {
+                    "id": "cards",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "Expert cards",
+                    "fields": [
+                        { "id": "title", "type": "string", "label": "Card title" },
+                        { "id": "paragraphs_json", "type": "string", "format": "textarea", "label": "Paragraphs (JSON array of strings)" },
+                        { "id": "highlight", "type": "string", "format": "textarea", "label": "Highlight text" }
+                    ],
+                    "value": []
+                }
+            ]
+        },
+        {
+            "title": "Landing Video Section",
+            "icon": "sicon-video",
+            "name": "landing-video-section",
+            "key": "landing-video-001",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                { "id": "title", "type": "string", "label": "Section title", "value": "تجاربكم" },
+                {
+                    "id": "videos",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "Videos",
+                    "fields": [
+                        { "id": "src", "type": "string", "format": "url", "label": "Video URL", "required": true },
+                        { "id": "poster", "type": "string", "format": "url", "label": "Poster image URL" }
+                    ],
+                    "value": [
+                        { "src": "https://custom.makaseb.tools/n1.mp4", "poster": "" },
+                        { "src": "https://custom.makaseb.tools/n2.mp4", "poster": "" },
+                        { "src": "https://custom.makaseb.tools/n3.mp4", "poster": "" },
+                        { "src": "https://custom.makaseb.tools/n4.mp4", "poster": "" }
+                    ]
+                }
+            ]
+        }
+    ]
 }
